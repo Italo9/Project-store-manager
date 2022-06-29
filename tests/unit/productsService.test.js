@@ -25,7 +25,7 @@ describe('Obtém todos os dados de productsModel', () => {
   after(() => {
     productsModel.getAll.restore()
   })
-
+//t
   it('Verificar se é um array de retorno', async () => {
     const result = await productsService.getAll()
     expect(result).to.be.a('array')
