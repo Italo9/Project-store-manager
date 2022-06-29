@@ -33,6 +33,8 @@
     "express": "^4.17.1",
     "express-rescue": "^1.1.26",
     "joi": "^17.6.0",
+    "helmet": "^5.1.0",
+    "morgan": "^1.10.0",
     "mysql2": "^2.3.0",
     "shelljs": "^0.8.5"
   },
