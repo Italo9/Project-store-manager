@@ -30,7 +30,22 @@ const getById = async (req, res) => {
   }
 };
 
+const addProduct = async (req, res) => {
+  try {
+    const { name } = req.body;
+    const result = await productsService.addProduct(name);
+    if (!result) {
+      return res.status(httpStatus.BAD_REQUEST).send('Dados inválidos');
+    }
+    res.status(httpStatus.CREATED).json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(httpStatus.INTERNAL_SERVER).send('Erro ao tentar realizar operação');
+  }
+};
+
 module.exports = {
   getAll,
   getById,
+  addProduct,
 };
