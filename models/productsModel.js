@@ -14,7 +14,6 @@ const getById = async (id) => {
     ORDER BY id`,
     [id],
   );
-  console.log(rows);
   return rows;
 };
 
