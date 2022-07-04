@@ -1,5 +1,22 @@
 const connection = require('../helpers/connection');
 
+const getAll = async () => {
+  const [rows] = await connection.execute(
+    'SELECT * FROM StoreManager.products ORDER BY id',
+  );
+  return rows;
+};
+
+const getById = async (id) => {
+  const [[rows]] = await connection.execute(
+    `SELECT * FROM StoreManager.products
+    WHERE id = ? 
+    ORDER BY id`,
+    [id],
+  );
+  return rows;
+};
+
 const addSales = async (arraySales) => {
   const [
     rowId,
@@ -20,5 +37,7 @@ const addSales = async (arraySales) => {
 };
 
 module.exports = {
+  getAll,
+  getById,
   addSales,
 };

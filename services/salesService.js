@@ -1,6 +1,18 @@
 const salesModel = require('../models/salesModel');
 const productsService = require('./productsService');
 
+const getAll = async () => {
+  const result = await salesModel.getAll();
+  if (!result) return [];
+  return result;
+};
+
+const getById = async (id) => {
+  const result = await salesModel.getById(id);
+  if (!result) return [];
+  return result;
+};
+
 const validateProductId = async (element) => {
   if (!element.productId) return { status: 400, message: { message: '"productId" is required' } };
   const productExists = await productsService.getById(element.productId);
@@ -47,5 +59,7 @@ const addSales = async (arraySales) => {
 };
 
 module.exports = {
+  getAll,
+  getById,
   addSales,
 };
