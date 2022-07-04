@@ -3,14 +3,38 @@ const productsService = require('./productsService');
 
 const getAll = async () => {
   const result = await salesModel.getAll();
-  if (!result) return [];
-  return result;
+  const returnData = result.map((element) => {
+    const { sale_id: saleId, product_id: productId, quantity, date, id } = element;
+    const obj = {
+      saleId,
+      date,
+      productId,
+      quantity,
+      id,
+    };
+    delete obj.id;
+    return obj;
+  });
+  return returnData;
 };
 
 const getById = async (id) => {
   const result = await salesModel.getById(id);
-  if (!result) return [];
-  return result;
+  if (result.length === 0) return undefined;
+  const returnData = result.map((element) => {
+    const { sale_id: saleId, product_id: productId, quantity, date, id: xablau } = element;
+    const obj = {
+      saleId,
+      date,
+      productId,
+      quantity,
+      xablau,
+    };
+    delete obj.xablau;
+    delete obj.saleId;
+    return obj;
+  });
+  return returnData;
 };
 
 const validateProductId = async (element) => {
