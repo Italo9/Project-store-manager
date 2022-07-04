@@ -27,7 +27,7 @@ describe('Ao chamar o controller the get all', () => {
     })
 
     after(() => {
-      productsService.getAll.restore()
+      sinon.restore()
     })
 
     it('Verifica o retorno dos dados', async () => {

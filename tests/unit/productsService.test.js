@@ -23,7 +23,7 @@ describe('Obtém todos os dados de productsModel', () => {
   })
 
   after(() => {
-    productsModel.getAll.restore()
+    sinon.restore()
   })
 //t
   it('Verificar se é um array de retorno', async () => {

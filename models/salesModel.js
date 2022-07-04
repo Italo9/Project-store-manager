@@ -2,14 +2,14 @@ const connection = require('../helpers/connection');
 
 const getAll = async () => {
   const [rows] = await connection.execute(
-    'SELECT * FROM StoreManager.products ORDER BY id',
+    'SELECT * FROM StoreManager.sales ORDER BY id',
   );
   return rows;
 };
 
 const getById = async (id) => {
   const [[rows]] = await connection.execute(
-    `SELECT * FROM StoreManager.products
+    `SELECT * FROM StoreManager.sales
     WHERE id = ? 
     ORDER BY id`,
     [id],

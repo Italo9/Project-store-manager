@@ -1,23 +1,22 @@
 const { expect } = require('chai')
 const sinon = require('sinon')
-const productsModel = require('../../models/productsModel')
+const salesModel = require('../../models/salesModel')
 const connection = require('../../helpers/connection')
 
 describe('Obtém todos os produtos', () => {
-  const mockPayloadProducts = [
+  const mockPayloadSales = [
     {
-      name: 'Teste1',
+      "productId": 1,
+      "quantity": 1
     },
     {
-      name: 'Teste2',
-    },
-    {
-      name: 'Teste3',
+      "productId": 2,
+      "quantity": 5
     }
   ];
   before(async () => {
     sinon.stub(connection, 'execute')
-      .resolves([mockPayloadProducts]);
+      .resolves([mockPayloadSales]);
   });
 
   after(async () => {
@@ -25,11 +24,11 @@ describe('Obtém todos os produtos', () => {
   });
 
   it('Retorna um array', async () => {
-    const result = await productsModel.getAll()
+    const result = await salesModel.getAll()
     expect(result).to.be.a('array')
   })
   it('Retorna um objeto que representa um produto', async () => {
-    const result = await productsModel.getById(1)
+    const result = await salesModel.getById(1)
     expect(result).to.be.a('object')
   })
 })
