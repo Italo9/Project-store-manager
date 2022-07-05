@@ -18,7 +18,7 @@ describe('Obtém todos os dados de salesModel', () => {
       }
     ];
     sinon.stub(salesModel, 'getAll').resolves(mockPayloadSales)
-    sinon.stub(salesModel, 'getById').resolves(mockPayloadSales[0])
+    sinon.stub(salesModel, 'getById').resolves(mockPayloadSales)
   })
 
   after(() => {
@@ -31,6 +31,6 @@ describe('Obtém todos os dados de salesModel', () => {
   })
   it('Retorna um objeto que representa um produto', async () => {
     const result = await salesService.getById(1)
-    expect(result).to.be.a('object')
+    expect(result).to.be.a('array')
   })
 })

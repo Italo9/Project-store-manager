@@ -29,6 +29,6 @@ describe('Obtém todos os produtos', () => {
   })
   it('Retorna um objeto que representa um produto', async () => {
     const result = await salesModel.getById(1)
-    expect(result).to.be.a('object')
+    expect(result).to.be.a('array')
   })
 })
