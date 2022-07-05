@@ -6,6 +6,7 @@ const httpStatusCodes = {
   NOT_FOUND: 404,
   INTERNAL_SERVER: 500,
   UNPROCESSABLE_ENTITY: 422,
+  NO_CONTENT: 204,
 };
 
 module.exports = httpStatusCodes;

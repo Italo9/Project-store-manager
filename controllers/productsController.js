@@ -11,7 +11,8 @@ const getAll = async (req, res) => {
     res.status(httpStatus.OK).json(results);
   } catch (err) {
     console.error(err);
-    res.status(httpStatus.INTERNAL_SERVER).json({ message: 'Erro ao tentar realizar operação' });
+    res.status(httpStatus.INTERNAL_SERVER)
+      .json({ message: 'Erro ao tentar realizar essa operação' });
   }
 };
 
@@ -70,9 +71,25 @@ const update = async (req, res) => {
   }
 };
 
+const exclude = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await productsService.exclude(id);
+    console.log(result);
+    if (!result) {
+      return res.status(httpStatus.NOT_FOUND).json({ message: 'Product not found' });
+    }
+    if (result.length === 0) return res.status(httpStatus.NO_CONTENT).send('Excluído com sucesso');
+  } catch (err) {
+    console.error(err);
+    res.status(httpStatus.INTERNAL_SERVER).json({ message: 'Erro ao tentar realizar operação' });
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   addProduct,
   update,
+  exclude,
 };
