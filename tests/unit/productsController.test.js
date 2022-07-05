@@ -71,3 +71,67 @@ describe('Ao chamar o controller the getById', () => {
   })
 })
 
+
+describe('Ao chamar o controller the addProduct', () => {
+  describe('quando há elementos', () => {
+    const res = {};
+    const req = {};
+    const mockPayloadProductId = [
+      {
+        id: 1,
+        name: 'Martelo de Thor',
+      },
+    ];
+
+    before(() => {
+      res.status = sinon.stub().returns(res)
+      res.json = sinon.stub().returns(mockPayloadProductId)
+      req.body = sinon.stub().returns(req)
+      req.body = sinon.stub().returns('teste')
+      sinon.stub(productsService, 'addProduct').resolves(mockPayloadProductId)
+    })
+
+    after(() => {
+      sinon.restore()
+    })
+
+    it('Verifica a adição de um produto', async () => {
+      await productsController.addProduct(req, res)
+      expect(res.json.calledWith(mockPayloadProductId)).to.equal(true)
+      expect(res.status.calledWith(201)).to.be.equal(true);
+    })
+  })
+})
+
+describe('Ao chamar o controller the update', () => {
+  describe('quando há elementos', () => {
+    const res = {};
+    const req = {};
+    const mockPayloadProductId = [
+      {
+        id: 1,
+        name: 'Martelo de Thor',
+      },
+    ];
+
+    before(() => {
+      res.status = sinon.stub().returns(res)
+      res.json = sinon.stub().returns(mockPayloadProductId)
+      req.body = sinon.stub().returns(req)
+      req.body = sinon.stub().returns('teste')
+      req.params = sinon.stub().returns(req)
+      req.params = sinon.stub().returns(1)
+      sinon.stub(productsService, 'update').resolves(mockPayloadProductId)
+    })
+
+    after(() => {
+      sinon.restore()
+    })
+
+    it('Verifica a atualização de um produto', async () => {
+      await productsController.update(req, res)
+      expect(res.json.calledWith(mockPayloadProductId)).to.equal(true)
+      expect(res.status.calledWith(200)).to.be.equal(true);
+    })
+  })
+})
