@@ -17,6 +17,17 @@ const getById = async (id) => {
   return rows;
 };
 
+const searchProduct = async (q) => {
+  const q1 = `%${q}%`;
+  const [rows] = await connection.execute(
+    `SELECT * FROM StoreManager.products
+    WHERE  name LIKE ?`,
+    [q1],
+  );
+  console.log(rows);
+  return rows;
+};
+
 const addProduct = async (name) => {
   const [
     row,
@@ -57,6 +68,7 @@ const exclude = async (id) => {
 module.exports = {
   getAll,
   getById,
+  searchProduct,
   addProduct,
   update,
   exclude,

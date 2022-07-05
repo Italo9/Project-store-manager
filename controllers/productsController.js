@@ -6,7 +6,7 @@ const getAll = async (req, res) => {
   try {
     const results = await productsService.getAll();
     if (!results) {
-      return res.status(httpStatus.NOT_FOUND).json({ message: 'Product not found' });
+      return res.status(httpStatus.NOT_FOUND).json({ message: 'Product not ' });
     }
     res.status(httpStatus.OK).json(results);
   } catch (err) {
@@ -28,6 +28,22 @@ const getById = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(httpStatus.INTERNAL_SERVER).send('Erro ao tentar realizar operação');
+  }
+};
+
+const searchProduct = async (req, res) => {
+  try {
+    const { q } = req.query;
+    if (q.length === 0) {
+      const resultProductsAll = await productsService.getAll();
+      return res.status(httpStatus.OK).json(resultProductsAll);
+    } 
+    const result = await productsService.searchProduct(q);
+    console.log('controller', result);
+    res.status(httpStatus.OK).json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(httpStatus.INTERNAL_SERVER).send('Erro ao procurar');
   }
 };
 
@@ -88,6 +104,7 @@ const exclude = async (req, res) => {
 module.exports = {
   getAll,
   getById,
+  searchProduct,
   addProduct,
   update,
   exclude,

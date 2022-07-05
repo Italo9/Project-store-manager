@@ -11,6 +11,10 @@ const getById = async (id) => {
   if (!result) return [];
   return result;
 };
+const searchProduct = async (q) => {
+  const result = await productsModel.searchProduct(q);
+  return result;
+};
 
 const addProduct = async (name) => {
   if (!name) return false;
@@ -35,6 +39,7 @@ const exclude = async (id) => {
 module.exports = {
   getAll,
   getById,
+  searchProduct,
   addProduct,
   update,
   exclude,
