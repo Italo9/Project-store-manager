@@ -43,10 +43,25 @@ const addSales = async (req, res) => {
     } else {
       res.status(httpStatus.CREATED).json(result);
     }
-  };
+};
+  
+const exclude = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await salesService.exclude(id);
+    if (!result) {
+      return res.status(httpStatus.NOT_FOUND).json({ message: 'Sale not found' });
+    }
+    if (result.length === 0) return res.status(httpStatus.NO_CONTENT).send('Deletado com sucesso');
+  } catch (err) {
+    console.error(err);
+    res.status(httpStatus.INTERNAL_SERVER).json({ message: 'Erro ao tentar realizar operação' });
+  }
+};
   
 module.exports = {
   getAll,
   getById,
   addSales,
+  exclude,
   };

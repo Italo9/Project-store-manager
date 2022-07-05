@@ -75,7 +75,6 @@ const exclude = async (req, res) => {
   try {
     const { id } = req.params;
     const result = await productsService.exclude(id);
-    console.log(result);
     if (!result) {
       return res.status(httpStatus.NOT_FOUND).json({ message: 'Product not found' });
     }

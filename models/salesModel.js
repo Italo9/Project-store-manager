@@ -19,6 +19,7 @@ const getById = async (id) => {
     order by sales_products.sale_id ASC, sales_products.product_id ASC`,
     [id],
   );
+  console.log('aqioiiiiii', rows);
   return rows;
 };
 
@@ -41,8 +42,18 @@ const addSales = async (arraySales) => {
   return result;
 };
 
+const exclude = async (id) => {
+  connection.execute(
+    `DELETE FROM StoreManager.sales_products
+    WHERE sale_id = ?`,
+    [id],
+  );
+  return [];
+};
+
 module.exports = {
   getAll,
   getById,
   addSales,
+  exclude,
 };

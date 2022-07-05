@@ -82,8 +82,16 @@ const addSales = async (arraySales) => {
   return bankRequisition;
 };
 
+const exclude = async (id) => {
+  const resultProduct = await salesModel.getById(id);
+  if (resultProduct.length === 0) return !resultProduct;
+  const result = await salesModel.exclude(id);
+  return result;
+};
+
 module.exports = {
   getAll,
   getById,
   addSales,
+  exclude,
 };
