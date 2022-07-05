@@ -47,8 +47,32 @@ const addProduct = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  try {
+    const { name } = req.body;
+    if (!name) {
+      return res.status(httpStatus.BAD_REQUEST).json({ message: '"name" is required' });
+    } if (name.length < 5) {
+      return res.status(httpStatus.UNPROCESSABLE_ENTITY)
+        .json({ message: '"name" length must be at least 5 characters long' });
+    }
+    const { id } = req.params;
+
+    const result = await productsService.update(id, name);
+
+    if (!result) {
+      return res.status(httpStatus.NOT_FOUND).json({ message: 'Product not found' });
+    }
+    return res.status(httpStatus.OK).json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(httpStatus.INTERNAL_SERVER).json({ message: 'Erro ao tentar realizar operação' });
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   addProduct,
+  update,
 };

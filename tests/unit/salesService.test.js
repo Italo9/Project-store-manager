@@ -29,7 +29,7 @@ describe('Obtém todos os dados de salesModel', () => {
     const result = await salesService.getAll()
     expect(result).to.be.a('array')
   })
-  it('Retorna um objeto que representa um produto', async () => {
+  it('Retorna um array com informações de venda', async () => {
     const result = await salesService.getById(1)
     expect(result).to.be.a('array')
   })
