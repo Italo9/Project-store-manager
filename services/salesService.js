@@ -82,6 +82,22 @@ const addSales = async (arraySales) => {
   return bankRequisition;
 };
 
+const update = async (id, arraySales) => {
+  const resultProduct = await salesModel.getById(id);
+  if (resultProduct.length === 0) {
+ return [{
+   status: 404, message: { message: 'Sale not found' },
+  }]; 
+}
+  const validateProduct = await assistantAddSales(arraySales);
+  const comErro = validateProduct.filter((element) => (element.message));
+  if (comErro.length > 0) {
+    return comErro;
+  } 
+  const result = await salesModel.update(id, validateProduct);
+  return result;
+};
+
 const exclude = async (id) => {
   const resultProduct = await salesModel.getById(id);
   if (resultProduct.length === 0) return !resultProduct;
@@ -93,5 +109,6 @@ module.exports = {
   getAll,
   getById,
   addSales,
+  update,
   exclude,
 };

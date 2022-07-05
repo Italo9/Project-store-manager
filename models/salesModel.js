@@ -19,7 +19,6 @@ const getById = async (id) => {
     order by sales_products.sale_id ASC, sales_products.product_id ASC`,
     [id],
   );
-  console.log('aqioiiiiii', rows);
   return rows;
 };
 
@@ -42,6 +41,23 @@ const addSales = async (arraySales) => {
   return result;
 };
 
+const update = async (id, validateProduct) => {
+  await Promise.all(validateProduct.map(async (element) => {
+    await connection.execute(
+      `UPDATE StoreManager.sales_products
+      SET quantity = ?
+      WHERE sale_id = ? and product_id = ?`,
+      [element.quantity, id, element.productId],
+    );
+   }));
+
+  const result = {
+    saleId: id,
+    itemsUpdated: validateProduct,
+  };
+  return result;
+};
+
 const exclude = async (id) => {
   connection.execute(
     `DELETE FROM StoreManager.sales_products
@@ -55,5 +71,6 @@ module.exports = {
   getAll,
   getById,
   addSales,
+  update,
   exclude,
 };

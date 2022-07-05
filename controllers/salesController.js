@@ -44,6 +44,24 @@ const addSales = async (req, res) => {
       res.status(httpStatus.CREATED).json(result);
     }
 };
+
+const update = async (req, res) => {
+    const { id } = req.params;
+    const arraySales = req.body;
+
+  const result = await salesService.update(id, arraySales);
+  console.log('controller', result);
+    const typeResult = Array.isArray(result);
+    if (typeResult) {
+      result.find((element) => {
+        if (element.message) {
+          return res.status(element.status).json(element.message);
+        } return res.status(httpStatus.OK).send(result);
+      });
+    } else {
+      res.status(httpStatus.OK).json(result);
+    }
+};
   
 const exclude = async (req, res) => {
   try {
@@ -63,5 +81,6 @@ module.exports = {
   getAll,
   getById,
   addSales,
+  update,
   exclude,
   };
