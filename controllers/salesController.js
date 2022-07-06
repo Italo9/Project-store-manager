@@ -50,7 +50,6 @@ const update = async (req, res) => {
     const arraySales = req.body;
 
   const result = await salesService.update(id, arraySales);
-  console.log('controller', result);
     const typeResult = Array.isArray(result);
     if (typeResult) {
       result.find((element) => {

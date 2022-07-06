@@ -30,7 +30,7 @@ describe('Obtém todos os dados de productsModel', () => {
   })
 })
 
-describe('Obtém todos os dados de productsModel', () => {
+describe('Obtém um produto pelo id do banco', () => {
 
   before(() => {
     const mockPayloadProducts = {
@@ -50,21 +50,64 @@ describe('Obtém todos os dados de productsModel', () => {
   })
 })
 
-// describe('Obtém todos os dados de salesModel', () => {
+describe('Atualiza as informações do banco', () => {
 
-//   before(() => {
-//     const mockPayloadSales = {
-//       id: 1,
-//       name: 'teste',
-//     };
-//     sinon.stub(salesModel, 'update').resolves(mockPayloadSales)
-//   })
+  before(() => {
+    const mockPayloadProducts = {
+      id: 1,
+      name: 'teste',
+    };
+    sinon.stub(productsModel, 'getById').resolves({id: 1})
+    sinon.stub(productsModel, 'update').resolves(mockPayloadProducts)
+  })
 
-//   after(() => {
-//     sinon.restore()
-//   })
-//   it('Retorna um object com informações atualizadas', async () => {
-//     const result = await salesService.update(1, 'xablau')
-//     expect(result).to.be.a('object')
-//   })
-// })
+  after(() => {
+    sinon.restore()
+  })
+  
+  it('Retorna um object com informações atualizadas', async () => {
+    const result = await productsService.update(1, 'xablau')
+    expect(result).to.be.a('object')
+  })
+})
+
+describe('Exclui um produto do banco', () => {
+
+  before(() => {
+    const mockPayloadProducts = [];
+    sinon.stub(productsModel, 'getById').resolves({})
+    sinon.stub(productsModel, 'exclude').resolves(mockPayloadProducts)
+  })
+
+  after(() => {
+    sinon.restore()
+  })
+  it('Retorna um objeto que representa o produto', async () => {
+    const result = await productsService.getById(1)
+    expect(result).to.be.a('object')
+  })
+
+  it('Retorna um array vazio', async () => {
+    const result = await productsService.exclude(1)
+    expect(result).to.be.a('array')
+  })
+})
+
+describe('Adiciona um produto ao banco', () => {
+
+  before(() => {
+    const mockPayloadProducts = {
+      id: 1,
+      name: 'teste',
+    };
+    sinon.stub(productsModel, 'addProduct').resolves(mockPayloadProducts)
+  })
+
+  after(() => {
+    sinon.restore()
+  })
+  it('Retorna um objeto', async () => {
+    const result = await productsService.addProduct('teste')
+    expect(result).to.be.a('object')
+  })
+})

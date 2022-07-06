@@ -135,3 +135,29 @@ describe('Ao chamar o controller the update', () => {
     })
   })
 })
+
+describe('Ao chamar o controller the exclude', () => {
+  describe('quando há elementos', () => {
+    const res = {};
+    const req = {};
+    const mockPayloadProduct = [];
+
+    before(() => {
+      res.status = sinon.stub().returns(res)
+      res.json = sinon.stub().returns(mockPayloadProduct)
+      req.params = sinon.stub().returns(req)
+      req.params = sinon.stub().returns(1)
+      sinon.stub(salesService, 'exclude').resolves(mockPayloadProduct)
+    })
+
+    after(() => {
+      sinon.restore()
+    })
+
+    it('Verifica a exclusão de um produto', async () => {
+      await salesController.exclude(req, res)
+      expect(res.json.calledWith(mockPayloadProduct)).to.equal(false)
+      expect(res.status.calledWith(204)).to.be.equal(true);
+    })
+  })
+})

@@ -24,7 +24,6 @@ const searchProduct = async (q) => {
     WHERE  name LIKE ?`,
     [q1],
   );
-  console.log(rows);
   return rows;
 };
 

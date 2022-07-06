@@ -39,7 +39,6 @@ const searchProduct = async (req, res) => {
       return res.status(httpStatus.OK).json(resultProductsAll);
     } 
     const result = await productsService.searchProduct(q);
-    console.log('controller', result);
     res.status(httpStatus.OK).json(result);
   } catch (err) {
     console.error(err);
